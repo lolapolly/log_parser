@@ -1,4 +1,4 @@
-# class LogParser
+# class LogParser assuming the file exists
 class LogParser
   def initialize(path)
     @path = path
