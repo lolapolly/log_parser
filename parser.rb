@@ -1,8 +1,10 @@
 require './lib/log_parser'
 
-parser = LogParser.new(ARGV[0])
+file_name = ARGV[0]
 
-puts "Calculating views"
+parser = LogParser.new(file_name)
+
+puts 'Calculating views'
 
 parser.calculate_views.each { |k, v| print "#{k} #{v} visits " }
 

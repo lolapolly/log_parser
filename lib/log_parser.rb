@@ -14,7 +14,7 @@ class LogParser
         views[result[0]] = 1
       end
     end
-    views.sort_by { |_k, v| -v }.to_h
+    sort_hash(views)
   end
 
   def calculate_unique_views
@@ -27,9 +27,26 @@ class LogParser
         unique_views[result[0]] = [result[1]]
       end
     end
-    unique_views
-      .map { |k, v| [k, v.uniq.length] }
-      .sort_by { |_k, v| -v }.to_h
+      unique = unique_views.map { |k, v| [k, v.uniq.length] }
+      sort_hash(unique)
+  end
+
+  def sort_hash(views)
+    views.sort_by { |_k, v| -v }.to_h
+  end
+
+  def average_views
+    average_calcutation = {}
+    open_file.each do |line|
+    result = line.split(' ')
+      if average_calcutation.key?(result[0])
+        average_calcutation[result[0]] << result[1]
+      else
+        average_calcutation[result[0]] = [result[1]]
+      end
+    end
+      unique = average_calcutation.map { |k, v| [k, v.length.to_f / v.uniq.length] }
+      sort_hash(unique)
   end
 
   private
